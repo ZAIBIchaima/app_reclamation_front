@@ -1,0 +1,92 @@
+<mat-toolbar color="primary">
+    <div fxHide.gt-xs>
+
+    </div>
+    <div>
+        <h1>ادارة المخالفات</h1>
+    </div>
+</mat-toolbar>
+<form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+    <input type="hidden" formControlName="idInfraction" id="idInfraction">
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>عدد المحضر</label>
+                <input type="number" class="form-control" formControlName="numInfraction" id="numInfraction">
+            </div>
+
+            <div class="form-group">
+                <label>الشكوى</label>
+                <select class="form-control" formControlName="numReclamation" id="numReclamation"
+                    (change)="onSelectReclamation($any($event.target).value)">
+                    <option value="0">-Select-</option>
+                    <option *ngFor="let item of ReclamationsList" value="{{item.numReclamation}}">
+                        {{item.numReclamation}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>تاريخ المخالفة </label>
+                <input type="date" class="form-control" formControlName="dateInfraction" id="dateInfraction">
+            </div>
+            <div class="form-group">
+                <label>العون المكلف</label>
+                <select class="form-control" formControlName="idF" id="idF"
+                    (change)="onSelectEmployee($any($event.target).value)">
+                    <option value="0">-Select-</option>
+                    <option *ngFor="let item of EmployeesList" value="{{item.id}}">
+                        {{item.nom}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>ب.ت.و صاحب المخالفة </label>
+                <input type="number" class="form-control" formControlName="cinSourceInfraction"
+                    id="cinSourceInfraction">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>محتوى المخالفة </label>
+                <input type="text" class="form-control" formControlName="descriptionInfraction"
+                    id="descriptionInfraction">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>مستوى الاشغال </label>
+                <input type="text" class="form-control" formControlName="niveauTraveaux" id="niveauTraveaux">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>الاضرار </label>
+                <input type="text" class="form-control" formControlName="degats" id="degats">
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>محتوى القرار </label>
+                <input type="text" class="form-control" formControlName="descriptions" id="descriptions">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Valider</button>
+        <a class="btn btn-outline-success" routerLink="/infractions"><i class="fa fa-plus-square"></i> Liste</a>
+    </div>
+</form>

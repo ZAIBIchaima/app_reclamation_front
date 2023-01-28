@@ -1,0 +1,59 @@
+<mat-toolbar color="primary">
+    <div fxHide.gt-xs>
+
+    </div>
+    <div>
+        جدول المخالفات
+    </div>
+</mat-toolbar>
+<div class="pricing-header mx-auto">
+    <div class="table-responsive">
+        <table class="table table-bordered table-responsive-sm table-responsive-md
+   table-responsive-lg">
+            <thead>
+                <tr>
+                    <th scope="col">عدد المحضر</th>
+
+                    <th scope="col">العون المكلف</th>
+                    <th scope="col">ب.ت.و صاحب المخالفة </th>
+                    <th scope="col">تاريخ المخالفة </th>
+                    <!-- <th scope="col">Etat </th> -->
+                    <th>
+                        <a class="btn btn-outline-success" routerLink="/acceuil/infraction"><i
+                                class="fa fa-plus-square"></i>
+                            Ajouter</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of crudApi.listData | paginate:{itemsPerPage:6,currentPage:p} ">
+
+                    <td>{{item.numInfraction}}</td>
+                    <td>{{item.idF}}</td>
+                    <td>{{item.cinSourceInfraction}}</td>
+                    <td>{{item.dateInfraction}}</td>
+                    <!-- <td>{{item.heureInfraction}}</td> -->
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-warning btn btn-outline-dark ml-1" (click)="selectData(item)">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-danger btn btn-outline-dark ml-1"
+                                    (click)="removeData(item.idInfraction)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </td>
+
+
+                </tr>
+                <pagination-controls (pageChange)="p=$event"></pagination-controls>
+            </tbody>
+        </table>
+    </div>
+</div>

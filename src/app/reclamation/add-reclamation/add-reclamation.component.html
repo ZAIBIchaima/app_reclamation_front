@@ -1,0 +1,81 @@
+<mat-toolbar color="primary">
+    <div fxHide.gt-xs>
+
+    </div>
+    <div>
+        <h1>ادارة الشكاوي</h1>
+    </div>
+</mat-toolbar>
+<form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+    <input type="hidden" formControlName="idReclamation" id="idReclamation">
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>عدد الشكاوي</label>
+                <input type="number" class="form-control" formControlName="numReclamation" id="numReclamation">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>تاريخ الشكوى </label>
+                <input type="date" class="form-control" formControlName="dateReclamation" id="dateReclamation">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>الشاكي</label>
+                <input type="text" class="form-control" formControlName="prenom_nomSourceReclamation"
+                    id="prenom_nomSourceReclamation">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>عنوان الشكاوي </label>
+                <input type="text" class="form-control" formControlName="adresseSourceReclamation"
+                    id="adresseSourceReclamation">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>المشتكي به</label>
+                <input type="text" class="form-control" formControlName="prenom_nomSourceDestinataire"
+                    id="prenom_nomSourceDestinataire">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>عنوان المشتكي به</label>
+                <input type="text" class="form-control" formControlName="adresseSourceDestinataire"
+                    id="adresseSourceDestinataire">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>عنوان العقار </label>
+                <input type="text" class="form-control" formControlName="adresseLocal" id="adresseLocal">
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>موضوع الشكوى </label>
+                <input type="text" class="form-control" formControlName="objetifReclamation" id="objetifReclamation">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>الملاحضات</label>
+        <input type="text" class="form-control" formControlName="observation" id="observation">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <a class="btn btn-outline-success" routerLink="/reclamations"><i class="fa fa-plus-square"></i> Liste</a>
+    </div>
+</form>
