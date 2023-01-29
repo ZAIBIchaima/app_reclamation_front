@@ -74,18 +74,18 @@ export class AddInfractionComponent implements OnInit {
     this.crudApi.createData(this.crudApi.dataForm.value).
       subscribe(data => {
         this.toastr.success('Validation Faite avec Success');
-        this.router.navigate(['/acceuil/infractions']);
+        this.router.navigate(['/reclamation/acceuil/infractions']);
         console.log(data);
       });
-    //location.reload();
+    location.reload();
   }
   updateData() {
     this.crudApi.updatedata(this.crudApi.dataForm.value.idInfraction, this.crudApi.dataForm.value).
       subscribe(data => {
         this.toastr.success('Modification Faite avec Success');
-        this.router.navigate(['/acceuil/infractions']);
+        this.router.navigate(['/reclamation/acceuil/infractions']);
       });
-    //location.reload();
+    location.reload();
   }
 
   onSelectReclamation(numReclamation: number) {

@@ -59,9 +59,9 @@ export class AddReclamationComponent implements OnInit {
     this.crudApi.createData(this.crudApi.dataForm.value).
       subscribe(data => {
         this.toastr.success('Validation Faite avec Success');
-        this.router.navigate(['/acceuil/reclamations']);
+        this.router.navigate(['/reclamation/acceuil/reclamations']);
       });
-    //location.reload();
+    location.reload();
   }
 
   updateData() {
@@ -69,7 +69,7 @@ export class AddReclamationComponent implements OnInit {
       subscribe(data => {
         this.dialogRef.close();
         this.toastr.success('Modification Faite avec Success');
-        this.router.navigate(['/acceuil/reclamations']);
+        this.router.navigate(['/reclamation/acceuil/reclamations']);
       });
     location.reload();
   }

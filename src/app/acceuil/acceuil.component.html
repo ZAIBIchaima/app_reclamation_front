@@ -1,11 +1,21 @@
 <div class="topnav">
     <!-- <img class="logo" src="assets/img/monatsir-removebg-preview.png" /> -->
-    <a class="active" routerLink="/acceuil">Accuiel</a>
+    <a class="active" routerLink="/acceuil">Accueil</a>
     <a routerLink="/acceuil/reclamations">الشكاوي</a>
     <a routerLink="/acceuil/infractions">المخالفات</a>
+    <!-- <div class="dropdown">
+        <button class="dropbtn">Reclamations
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a routerLink="/acceuil/reclamations">الشكاوي</a>
+            <a routerLink="/acceuil/infractions">المخالفات</a>
+            <a href="#">Link 3</a>
+        </div>
+    </div> -->
     <div class="topnav-right">
-        <a href="#search"><span class="glyphicon glyphicon-user"></span>{{ username }}</a>
-        <a href (click)="logout()">Déconnexion</a>
+        <a href><span class="glyphicon glyphicon-user"></span> {{ username }}</a>
+        <a href (click)="logout()"><span class="glyphicon glyphicon-log-in"></span> Déconnexion</a>
     </div>
 </div>
 
@@ -49,7 +59,10 @@
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
-        <div class="row"></div>
+        <div class="row">
+            <div class="col-lg-12"></div>
+        </div>
+
         <div class="container-fluid">
             <router-outlet></router-outlet>
         </div><!-- /.container-fluid -->
