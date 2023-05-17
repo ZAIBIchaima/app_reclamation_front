@@ -1,4 +1,5 @@
-<mat-toolbar color="primary">
+<html lang="ar" dir="rtl">
+<mat-toolbar>
     <div fxHide.gt-xs>
 
     </div>
@@ -7,75 +8,94 @@
     </div>
 </mat-toolbar>
 <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
-    <input type="hidden" formControlName="idReclamation" id="idReclamation">
+    <input type="hidden" formControlName="id" id="id">
 
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label>عدد الشكاوي</label>
-                <input type="number" class="form-control" formControlName="numReclamation" id="numReclamation">
+                <label style="font-size:15px">عدد الشكوى</label>
+                <input type="number" class="form-control" style="font-size:15px" formControlName="numReclamation"
+                    id="numReclamation">
             </div>
         </div>
         <div class="col">
             <div class="form-group">
-                <label>تاريخ الشكوى </label>
-                <input type="date" class="form-control" formControlName="dateReclamation" id="dateReclamation">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label>الشاكي</label>
-                <input type="text" class="form-control" formControlName="prenom_nomSourceReclamation"
-                    id="prenom_nomSourceReclamation">
+                <label style="font-size:15px">رمز الشكوى</label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="refReclamation"
+                    id="refReclamation">
             </div>
         </div>
         <div class="col">
             <div class="form-group">
-                <label>عنوان الشكاوي </label>
-                <input type="text" class="form-control" formControlName="adresseSourceReclamation"
-                    id="adresseSourceReclamation">
+                <label style="font-size:15px">تاريخ الشكوى </label>
+                <input type="date" class="form-control" style="font-size:15px" formControlName="dateReclamation"
+                    id="dateReclamation">
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label>المشتكي به</label>
-                <input type="text" class="form-control" formControlName="prenom_nomSourceDestinataire"
-                    id="prenom_nomSourceDestinataire">
+                <label style="font-size:15px">الشاكي</label>
+                <input type="text" class="form-control" style="font-size:15px"
+                    formControlName="prenomNomSourceReclamation" id="prenomNomSourceReclamation">
             </div>
         </div>
         <div class="col">
             <div class="form-group">
-                <label>عنوان المشتكي به</label>
-                <input type="text" class="form-control" formControlName="adresseSourceDestinataire"
-                    id="adresseSourceDestinataire">
+                <label style="font-size:15px">عنوان الشكاوي </label>
+                <input type="text" class="form-control" style="font-size:15px"
+                    formControlName="adresseSourceReclamation" id="adresseSourceReclamation">
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label>عنوان العقار </label>
-                <input type="text" class="form-control" formControlName="adresseLocal" id="adresseLocal">
+                <label style="font-size:15px">المشتكي به</label>
+                <input type="text" class="form-control" style="font-size:15px"
+                    formControlName="prenomNomSourceDestinataire" id="prenomNomSourceDestinataire">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label style="font-size:15px">عنوان المشتكي به</label>
+                <input type="text" class="form-control" style="font-size:15px"
+                    formControlName="adresseSourceDestinataire" id="adresseSourceDestinataire">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label style="font-size:15px">عنوان العقار </label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="adresseLocal"
+                    id="adresseLocal">
             </div>
 
         </div>
         <div class="col">
             <div class="form-group">
-                <label>موضوع الشكوى </label>
-                <input type="text" class="form-control" formControlName="objetifReclamation" id="objetifReclamation">
+                <label style="font-size:15px">موضوع الشكوى </label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="objetifReclamation"
+                    id="objetifReclamation">
             </div>
         </div>
+
     </div>
     <div class="form-group">
-        <label>الملاحضات</label>
-        <input type="text" class="form-control" formControlName="observation" id="observation">
+        <label style="font-size:15px">الملاحضات</label>
+        <input type="text" class="form-control" style="font-size:15px" formControlName="observation" id="observation">
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Valider</button>
+        <button type="submit" class="btn btn-success" style="font-size:15px"><i class="fa fa-database"></i> تسجيل
+        </button>
+        <button type="button" class="btn btn-danger" style="font-size:15px" [mat-dialog-close]>
+            <i class="fa fa-close"></i> الغاء
+        </button>
+
 
     </div>
 </form>
+
+</html>

@@ -10,9 +10,46 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-toolbar.mat-primary {
+.mat-toolbar {
+    background: linear-gradient(to right, #f4f5f8, #4870f3);
+    color: #ffffff;
+    /* White text color */
+}
+
+.custom-btn {
+    color: rgb(9, 6, 139);
+}
+
+.navbar.bg-light {
+    background-color: white;
+}
+
+.custom-input {
+    /* Add your custom styles here */
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    /* ... */
+}
+
+/* .mat-toolbar.mat-primary {
     background: #08affd;
     color: #fff;
+} */
+
+/* Style buttons */
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+    background-color: RoyalBlue;
 }
 
 /* Add a black background color to the top navigation */
@@ -50,7 +87,7 @@ body {
 
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-    background-color: red;
+    background-color: rgb(0, 17, 255);
 }
 
 /* Navbar container */
@@ -93,7 +130,7 @@ body {
 /* Add a red background color to navbar links on hover */
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-    background-color: red;
+    background-color: rgb(0, 255, 255);
 }
 
 /* Dropdown content (hidden by default) */
@@ -124,4 +161,8 @@ body {
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.flexExpand {
+    flex: 1 1 auto;
 }

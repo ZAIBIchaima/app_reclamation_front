@@ -1,0 +1,51 @@
+<html lang="ar" dir="rtl">
+<mat-toolbar>
+
+    <div>
+        <h1><b>اضافة مستخدم</b> </h1>
+    </div>
+
+</mat-toolbar>
+<form [formGroup]="this.service.formData" (ngSubmit)="onSubmit()">
+
+    <div class="form-group row col-md-12">
+        <div class="form-group col-md-6">
+            <label style="font-size:15px"> اسم المستخدم </label>
+            <input type="text" class="form-control" style="font-size:15px" formControlName="username" id="username">
+        </div>
+
+        <div class="col-md-6 form-group">
+            <label style="font-size:15px">العنوان الالكتروني</label>
+            <input type="text" class="form-control" style="font-size:15px" formControlName="email" id="email">
+        </div>
+
+        <div class="col-md-6 form-group">
+            <label style="font-size:15px">كلمة السر </label>
+            <input type="text" class="form-control" style="font-size:15px" formControlName="password" id="password" />
+        </div>
+        <div class="col-md-6 form-group">
+            <label style="font-size:15px">الصفة </label>
+            <select class="form-control" style="font-size:15px" formControlName="roles" id="roles" multiple>
+                <option *ngFor="let item of ListRole" value="{{item.name}}">{{item.name}}</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success" style="font-size:15px"><i class="fa fa-database"></i> تسجيل
+        </button>
+        <button type="button" class="btn btn-danger" style="font-size:15px" routerLink="/acceuil/users">
+            <i class="fa fa-close"></i> الغاء
+        </button>
+
+
+    </div>
+    <!-- <div class="form-group">
+
+        <button type="submit" class="btn btn-primary"><i class="fa fa-database"></i>
+            enregistrer</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" routerLink="/acceuil/users">Anunler</button>
+    </div> -->
+</form>
+
+</html>

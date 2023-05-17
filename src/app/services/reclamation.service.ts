@@ -2,19 +2,28 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Reclamation } from '../models/reclamation';
-import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
+
+import { saveAs } from 'file-saver';
+import { Const } from '../const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReclamationService {
 
-  private baseUrl = 'http://localhost:8082/backend/api/listreclamation';
-  private baseUrl1 = '/api/saveUserServer';
-  // host: string = "http://localhost:8080/backend";
+  url = Const.appURL;
+  private baseUrl = this.url + '/api/listreclamation';
+  private baseUrl1 = this.url + '/api/export/pdf';
+  private baseUrl2 = this.url + '/api/export/csv';
+  private baseUrl3 = this.url + '/api/filterReclamation';
+  private baseUrl4 = this.url + '/api/reclamation/ref';
+
   choixmenu: string = 'A';
   listData: Reclamation[];
-  public dataForm!: FormGroup;
+  public dataForm: FormGroup;
+  d1: Date;
+  d2: Date;
 
   constructor(private http: HttpClient) { }
 
@@ -36,19 +45,39 @@ export class ReclamationService {
   }
 
   getAll(): Observable<any> {
-
     return this.http.get(`${this.baseUrl}`);
   }
 
-
-  uploadFile(file: File): Observable<HttpEvent<{}>> {
-    const formdata: FormData = new FormData();
-    formdata.append('file', file);
-    const req = new HttpRequest('POST', '<Server URL of the file upload>', formdata, {
-      reportProgress: true,
-      responseType: 'text'
-    });
-
-    return this.http.request(req);
+  exportPdf(): Observable<Blob> {
+    return this.http.get(`${this.baseUrl1}`, { responseType: 'blob' });
   }
+
+  exportCSV(): Observable<Blob> {
+    return this.http.get(`${this.baseUrl2}`, { responseType: 'blob' });
+  }
+
+  getBetweenTwoDate(dateStart: Date, dateEnd: Date, refReclamation: string): Observable<any> {
+
+    this.d1 = new Date(dateStart);
+    this.d2 = new Date(dateEnd);
+
+    let params = new HttpParams();
+    params = params.set('dateStart', this.d1.toDateString());
+    params = params.set('dateEnd', this.d2.toDateString());
+    params = params.set('refReclamation', refReclamation);
+    //params = params.set('prenomNomSourceReclamation', prenomNomSourceReclamation);, prenomNomSourceReclamation: string
+
+    return this.http.get(`${this.baseUrl3}`, { params: params });
+  }
+
+  getReclamationByNumAndNom(refReclamation: string, prenomNomSourceReclamation: string): Observable<any> {
+    let params = new HttpParams();
+    //params = params.set('numReclamation', numReclamation);
+    params = params.set('refReclamation', refReclamation);
+    params = params.set('prenomNomSourceReclamation', prenomNomSourceReclamation);
+
+    return this.http.get(`${this.baseUrl4}`, { params: params });
+  }
+
+
 }

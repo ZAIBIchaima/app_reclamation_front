@@ -1,15 +1,29 @@
+import { User } from "./user";
+
 export class Reclamation {
-    idReclamation: number;
+    id: number;
     numReclamation: number;
+    refReclamation: String;
     dateReclamation: Date;
-    prenom_nomSourceReclamation: String;
+    prenomNomSourceReclamation: String;
     adresseSourceReclamation: String;
-    prenom_nomSourceDestinataire: String;
+    prenomNomSourceDestinataire: String;
     adresseSourceDestinataire: String;
     adresseLocal: String;
     objetifReclamation: String;
     observation: String;
-    dateCreation: Date;
-    dateDernierModification: Date;
-    etat: boolean;
+    etat: number;
+
+    userCreation: number;
+    userLastmodified: number;
+    dateUserCreation: Date;
+    dateUserLastmodified: Date;
+
+    //userLastModified_id: number;
+    // userCreation: User;
+    //  userLastModified: User;
+    //dateUserCreation: Date;
+    //dateUserLastmodified: Date;
+
+
 }

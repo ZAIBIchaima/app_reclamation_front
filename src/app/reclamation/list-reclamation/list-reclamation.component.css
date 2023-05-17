@@ -1,0 +1,11 @@
+.custom-btn {
+    color: rgb(9, 6, 139);
+}
+
+.custom-input {
+    /* Add your custom styles here */
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    /* ... */
+}

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ChartOptions, ChartType } from 'chart.js';
+import { Color, Label, SingleDataSet } from 'ng2-charts';
+import { CountEtat } from '../models/countEtat';
+import { InfractionService } from '../services/infraction.service';
 import { TokenStorageService } from '../services/token-storage.service';
 
 @Component({
@@ -15,10 +19,14 @@ export class AcceuilComponent implements OnInit {
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
+  iduser: number;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+
+  constructor(private tokenStorageService: TokenStorageService,
+  ) { }
 
   ngOnInit(): void {
+
     //this.name = localStorage.getItem('name');
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
@@ -29,21 +37,15 @@ export class AcceuilComponent implements OnInit {
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
 
       this.username = user.username;
+      this.iduser = user.id;
+      console.log(this.iduser);
     }
-
-    // this.userService.getAdminBoard().subscribe(
-    //   data => {
-    //     this.content = data;
-    //   },
-    //   err => {
-    //     this.content = JSON.parse(err.error).message;
-    //   }
-    // );
-
   }
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
   }
+
+
 
 }

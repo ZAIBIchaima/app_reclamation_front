@@ -1,24 +1,25 @@
-<mat-toolbar color="primary">
-    <div fxHide.gt-xs>
-
-    </div>
+<html lang="ar" dir="rtl">
+<mat-toolbar>
     <div>
-        <h1>ادارة المخالفات</h1>
+        <h1>ادارة المحاضر</h1>
     </div>
 </mat-toolbar>
+
 <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
     <input type="hidden" formControlName="idInfraction" id="idInfraction">
 
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label>عدد المحضر</label>
-                <input type="number" class="form-control" formControlName="numInfraction" id="numInfraction">
+                <label style="font-size:15px">عدد المحضر</label>
+                <input type="number" class="form-control" style="font-size:15px" formControlName="numInfraction"
+                    id="numInfraction">
             </div>
 
+
             <div class="form-group">
-                <label>الشكوى</label>
-                <select class="form-control" formControlName="numReclamation" id="numReclamation"
+                <label style="font-size:15px">الشكوى</label>
+                <select class="form-control" formControlName="numReclamation" style="font-size:15px" id="numReclamation"
                     (change)="onSelectReclamation($any($event.target).value)">
                     <option value="0">-Select-</option>
                     <option *ngFor="let item of ReclamationsList" value="{{item.numReclamation}}">
@@ -29,64 +30,78 @@
         </div>
         <div class="col">
             <div class="form-group">
-                <label>تاريخ المخالفة </label>
-                <input type="date" class="form-control" formControlName="dateInfraction" id="dateInfraction">
+                <label style="font-size:15px">تاريخ المخالفة </label>
+                <input type="date" class="form-control" style="font-size:15px" formControlName="dateInfraction"
+                    id="dateInfraction">
             </div>
             <div class="form-group">
-                <label>العون المكلف</label>
-                <select class="form-control" formControlName="idF" id="idF"
-                    (change)="onSelectEmployee($any($event.target).value)">
-                    <option value="0">-Select-</option>
-                    <option *ngFor="let item of EmployeesList" value="{{item.id}}">
-                        {{item.nom}}
+                <label style="font-size:15px"> العون</label>
+                <select class="form-control" style="font-size:15px" formControlName="codeEmploye" id="codeEmploye"
+                    (change)="onSelectEmp($any($event.target).value)">
+                    <option value="">-Select-</option>
+                    <option *ngFor="let item of EmployeesList" value="{{item.nomPrenom}}">
+                        {{item.nomPrenom}}
                     </option>
                 </select>
             </div>
         </div>
 
+
     </div>
+
+
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label>ب.ت.و صاحب المخالفة </label>
-                <input type="number" class="form-control" formControlName="cinSourceInfraction"
-                    id="cinSourceInfraction">
+                <label style="font-size:15px">محتوى المخالفة </label>
+                <input type="textarea" class="form-control" style="font-size:15px"
+                    formControlName="descriptionInfraction" id="descriptionInfraction">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label style="font-size:15px">مستوى الاشغال </label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="niveauTraveaux"
+                    id="niveauTraveaux">
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label>محتوى المخالفة </label>
-                <input type="text" class="form-control" formControlName="descriptionInfraction"
-                    id="descriptionInfraction">
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label>مستوى الاشغال </label>
-                <input type="text" class="form-control" formControlName="niveauTraveaux" id="niveauTraveaux">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label>الاضرار </label>
-                <input type="text" class="form-control" formControlName="degats" id="degats">
+                <label style="font-size:15px">الاضرار </label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="degats" id="degats">
             </div>
 
         </div>
         <div class="col">
             <div class="form-group">
-                <label>محتوى القرار </label>
-                <input type="text" class="form-control" formControlName="descriptions" id="descriptions">
+                <label style="font-size:15px">محتوى القرار </label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="descriptions"
+                    id="descriptions">
+            </div>
+            <div class="form-group">
+                <label style="font-size:15px"> الجهة</label>
+                <select class="form-control" style="font-size:15px" formControlName="source" id="source"
+                    (change)="onSelectSource($any($event.target).value)">
+                    <option value="">-Select-</option>
+                    <option *ngFor="let item of SourceList" value="{{item.nom}}">
+                        {{item.nom}}
+                    </option>
+                </select>
             </div>
         </div>
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Valider</button>
+        <button type="submit" class="btn btn-success" style="font-size:15px">
+            <i class="fa fa-database"></i> تسجيل
+        </button>
+        <button type="button" class="btn btn-danger" style="font-size:15px" [mat-dialog-close]>
+            <i class="fa fa-close"></i> الغاء
+        </button>
 
     </div>
 </form>
+
+</html>

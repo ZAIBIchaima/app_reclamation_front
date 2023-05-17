@@ -1,0 +1,85 @@
+<html lang="ar" dir="rtl">
+<mat-toolbar>
+    <div>
+        <h1 style="font-family: 'Amiri', Arial, sans-serif; text-align: center; font-size: 24px; font-weight: bold;">
+            قائمة المستخدمين
+        </h1>
+
+    </div>
+</mat-toolbar>
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+
+    <button class="btn custom-btn" (click)="newComm()" style="font-size:20px">
+        <i class="fa fa-plus-square"> اضافة </i>
+    </button>
+</nav>
+<!--<input type="text" [(ngModel)]="SearchText" class="form-control bg-light border-0 small"
+  placeholder="Recherche..." aria-label="Search" aria-describedby="basic-addon2">-->
+<div class="pricing-header mx-auto">
+    <div class="table table-striped">
+        <table class="table table-bordered table-responsive-sm table-responsive-md
+   table-responsive-lg" id="htmlData">
+            <thead style="font-size:18px">
+                <th scope="col">عدد</th>
+                <th scope="col">اسم المستخدم</th>
+                <th scope="col">العنوان الالكتروني</th>
+                <th scope="col">الصفة</th>
+                <th scope="col"></th>
+
+            </thead>
+            <tbody style="font-size:15px">
+                <tr *ngFor="let user of userListe  | paginate:{itemsPerPage: 6 ,currentPage: p}">
+                    <td>{{user.id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.roles.length}}</td>
+
+
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-warning btn b ml-1" style="font-size:15px"
+                                    (click)="onSelect(user)">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-danger btn  ml-1" style="font-size:15px"
+                                    (click)="onDelete(user.id)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </td>
+
+                    <!-- 
+            <td>
+                
+                <a class="btn text-danger" (click)="onDelete(user.id)"><i class="fa fa-trash fa-lg">
+
+                    </i> </a>
+
+                <a class="btn text-danger" (click)="onSelect(user)">edit </a>
+            </td> -->
+
+
+
+                </tr>
+                <div class="row">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite"></div>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                            <ul class="pagination"></ul>
+                        </div>
+                    </div>
+                </div>
+            </tbody>
+        </table>
+    </div>
+</div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+</html>

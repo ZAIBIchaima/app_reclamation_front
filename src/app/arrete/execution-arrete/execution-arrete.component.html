@@ -1,0 +1,74 @@
+<html lang="ar" dir="rtl">
+<mat-toolbar>
+    <div>
+        <h1 style="font-family: 'Amiri', Arial, sans-serif; text-align: center; font-size: 24px; font-weight: bold;">
+            التنفيذ</h1>
+    </div>
+</mat-toolbar>
+<form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+    <input type="hidden" formControlName="idArrete" id="idArrete">
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label style="font-size:15px">عدد محضر التنفيذ </label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="numExecution"
+                    id="numExecution">
+            </div>
+            <div class="form-group">
+                <label style="font-size:15px">تاريخ التنفيذ </label>
+                <input type="date" class="form-control" style="font-size:15px" formControlName="dateExecution"
+                    id="dateExecution">
+            </div>
+
+
+        </div>
+        <div class="col">
+
+            <div class="form-group">
+                <label style="font-size:15px"> نوع القرار</label>
+                <select class="form-control" style="font-size:15px" formControlName="typeDecision_Id"
+                    id="typeDecision_Id" (change)="onSelectTypeDecision($any($event.target).value)">
+                    <option value="0">-Select-</option>
+                    <option *ngFor="let item of TypeDecisionList" value="{{item.id}}">
+                        {{item.nomType}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label style="font-size:15px"> جهة التنفيذ </label>
+                <select class="form-control" style="font-size:15px" formControlName="sourceExecution_Id"
+                    id="sourceExecution_Id" (change)="onSelectSourceExecution($any($event.target).value)">
+                    <option value="0">-Select-</option>
+                    <option *ngFor="let item of SourceExecutionList" value="{{item.id}}">
+                        {{item.nom}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label style="font-size:15px">الملاحظات </label>
+            <input type="text" class="form-control" style="font-size:15px" formControlName="commentairesExecution"
+                id="commentairesExecution">
+        </div>
+    </div>
+
+
+
+
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success" style="font-size:15px"><i class="fa fa-database"></i> تسجيل
+        </button>
+        <button type="button" class="btn btn-danger" style="font-size:15px" [mat-dialog-close]>
+            <i class="fa fa-close"></i> الغاء
+        </button>
+
+    </div>
+</form>
+
+</html>

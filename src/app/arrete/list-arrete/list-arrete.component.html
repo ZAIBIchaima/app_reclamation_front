@@ -1,0 +1,157 @@
+<html lang="ar" dir="rtl">
+<mat-toolbar>
+    <div>
+        <h1 style="font-family: 'Amiri', Arial, sans-serif; text-align: center; font-size: 24px; font-weight: bold;">
+            جدول القرارات
+        </h1>
+    </div>
+</mat-toolbar>
+<!-- add  -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+
+    <button class="btn custom-btn" (click)="addarticle()" style="font-size:20px">
+        <i class="fa fa-plus-square"> اضافة </i>
+    </button>&nbsp;&nbsp;&nbsp;
+    <button class="btn custom-btn" (click)="exportPdf()" style="font-size:20px">
+        <i class="fa fa-file-pdf-o" aria-hidden="true"> PDF </i>
+    </button>&nbsp;&nbsp;&nbsp;
+    <button class="btn custom-btn" (click)="downloadFileCSV()" style="font-size:20px">
+        <i class="fa fa-download"> CSV </i>
+    </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <!--search by date-->
+    <div style="display: inline-flex; align-items: center;">
+        <label style="font-size: 18px; white-space: nowrap;" class="custom-btn"> تاريخ القرار من </label>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input class="form-control custom-input" type="date" [(ngModel)]="dateArreteStart"
+            style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <label style="font-size: 18px;" class="custom-btn"> الى </label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input class="form-control custom-input" type="date" [(ngModel)]="dateArreteEnd"
+            style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <input type="hidden" [(ngModel)]="numArrete" style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <input type="hidden" [(ngModel)]="refArrete" style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <button class="btn bg-transparent custom-btn" (click)="filter()" style="font-size:18px">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
+    </div>
+</nav>
+<!-- search -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <!-- search by name-->
+    <div style="display: inline-flex; align-items: center;">
+        <label style="font-size: 18px; white-space: nowrap;" class="custom-btn"> رمز القرار
+        </label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input class="form-control custom-input" type="search" (ngModelChange)="search(key.value)" #key="ngModel"
+            ngModel name="key" placeholder="بحث ..." style="font-size: 18px;">
+    </div>
+</nav>
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div>
+        <label style="font-size:18px"> تاريخ القرار من </label>
+        <input type="date" [(ngModel)]="dateArreteStart" style="font-size:18px">
+
+        <label style="font-size:18px"> الى </label>
+        <input type="date" [(ngModel)]="dateArreteEnd" style="font-size:18px">
+
+        <label style="font-size:18px"> عدد القرار</label>
+        <input type="number" [(ngModel)]="numArrete" style="font-size:18px">
+
+        <label style="font-size:18px"> رمز القرار </label>
+        <input type="text" [(ngModel)]="refArrete" style="font-size:18px">
+
+        <button class="btn bg-transparent" (click)="filter()" style="font-size:18px">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
+
+    </div>
+    
+</nav> -->
+
+<div class="pricing-header mx-auto" id="htmlData">
+    <div class="table-responsive">
+        <table class="table table-bordered table-responsive-sm table-responsive-md
+   table-responsive-lg">
+            <thead>
+                <tr>
+                    <th scope="col" style="font-size:15px">عدد القرار</th>
+                    <th scope="col" style="font-size:15px">رمز القرار</th>
+                    <th scope="col" style="font-size:15px">تاريخ القرار </th>
+                    <th scope="col" style="font-size:15px">محتوى القرار </th>
+                    <th scope="col" style="font-size:15px">موضوع القرار </th>
+                    <th scope="col" style="font-size:15px">وضعية القرار </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <tr *ngFor="let item of crudApi.listData | paginate:{itemsPerPage:6,currentPage:p}"
+                    style="font-size:13px">
+
+                    <td>{{item.numArrete}}</td>
+                    <td>{{item.refArrete}}</td>
+                    <td>{{item.dateArrete | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{item.descriptionArrete}}</td>
+                    <td>{{item.objetArrete}}</td>
+                    <td>
+                        <i *ngIf="item.etat==1" class="fa fa-check" style="font-size:13px;color:rgb(43, 255, 0)">
+                            تم التنفيذ</i>
+                        <i *ngIf="item.etat!=1" class="fa fa-spinner" style="font-size:13px;color:rgb(25, 0, 255)">
+                            لم يتم التنفيذ</i>
+
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-warning btn  ml-1" style="font-size:15px"
+                                    (click)="selectData(item)">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-danger btn  ml-1" style="font-size:15px"
+                                    (click)="removeData(item.idArrete)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-primary" style="font-size:15px"
+                                    (click)="selectDataEx(item)">
+                                    <i class="fa fa-plus-square"> تنفيذ </i>
+                                </button>
+
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-primary" style="font-size:15px"
+                                    (click)="selectDataCour(item)">
+                                    <i class="fa fa-plus-square"> احالة على العدالة </i>
+                                </button>
+
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-success" style="font-size:15px"
+                                    (click)="exportArretePdf(item.idArrete)">
+                                    <i class="fa fa-download"> استخراج قرار </i>
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </td>
+
+
+                </tr>
+                <pagination-controls (pageChange)="p=$event" style="font-size:13px"></pagination-controls>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</html>

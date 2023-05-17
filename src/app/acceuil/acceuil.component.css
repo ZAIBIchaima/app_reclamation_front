@@ -1,0 +1,36 @@
+.topnav {
+    background-color: #333333;
+    overflow: hidden;
+}
+
+.topnav a {
+    float: right;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav a:hover {
+    background-color: #555555;
+}
+
+.topnav a.active {
+    background-color: #4870f3;
+}
+
+.topnav-right {
+    float: left;
+}
+
+.topnav-right a {
+    float: right;
+}
+
+.topnav-right a:hover {
+    background-color: #555555;
+}
+
+.topnav-right a .glyphicon {
+    margin-right: 5px;
+}

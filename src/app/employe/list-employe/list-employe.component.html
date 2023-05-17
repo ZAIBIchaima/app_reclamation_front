@@ -1,0 +1,85 @@
+<html lang="ar" dir="rtl">
+<mat-toolbar>
+
+    <div>
+        <h1 style="font-family: 'Amiri', Arial, sans-serif; text-align: center; font-size: 24px; font-weight: bold;">
+            جدول الاعوان
+        </h1>
+
+    </div>
+</mat-toolbar>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+
+    <button class="btn custom-btn" (click)="addarticle()" style="font-size:20px">
+        <i class="fa fa-plus-square"> اضافة </i>
+    </button>&nbsp;&nbsp;&nbsp;
+    <button class="btn custom-btn" (click)="exportPdf()" style="font-size:20px">
+        <i class="fa fa-file-pdf-o" aria-hidden="true"> PDF </i>
+    </button>&nbsp;&nbsp;&nbsp;
+    <button class="btn custom-btn" (click)="downloadFileCSV()" style="font-size:20px">
+        <i class="fa fa-download"> CSV </i>
+    </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <!-- search -->
+    <div style="display: inline-flex; align-items: center;">
+        <label style="font-size: 18px;" class="custom-btn"> العون </label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input class="form-control custom-input" type="search" (ngModelChange)="search(key.value)" #key="ngModel"
+            ngModel name="key" placeholder="بحث ..." style="font-size: 18px;">
+    </div>
+</nav>
+
+<div class="pricing-header mx-auto" id="htmlData">
+    <div class="table-responsive">
+        <table class="table table-bordered table-responsive-sm table-responsive-md
+   table-responsive-lg">
+            <thead>
+                <tr>
+                    <th scope="col" style="font-size:15px"> اسم العون</th>
+                    <th scope="col" style="font-size:15px">العنوان</th>
+                    <th scope="col" style="font-size:15px">الوظيفة</th>
+                    <th scope="col" style="font-size:15px">رقم الهاتف</th>
+                    <th scope="col" style="font-size:15px">البريد الالكتروني </th>
+                    <th scope="col" style="font-size:15px"> المصلحة </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of crudApi.listData | paginate:{itemsPerPage:6,currentPage:p} "
+                    style="font-size:13px">
+
+                    <td>{{item.nomPrenom}}</td>
+                    <td>{{item.adresse}}</td>
+                    <td>{{item.fonction}}</td>
+                    <td>{{item.contact}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.libDep}}</td>
+
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-warning btn  ml-1" style="font-size:15px"
+                                    (click)="selectData(item)">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                            </div>
+
+                            <div class="col">
+                                <button class="btn btn-danger btn  ml-1" style="font-size:15px"
+                                    (click)="removeData(item.id)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                </tr>
+                <pagination-controls (pageChange)="p=$event" style="font-size:13px"></pagination-controls>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</html>

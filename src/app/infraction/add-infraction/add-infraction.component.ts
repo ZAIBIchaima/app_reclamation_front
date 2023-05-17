@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Employee } from 'src/app/models/Employee';
+import { Employe } from 'src/app/models/employe';
 import { Reclamation } from 'src/app/models/reclamation';
+import { SourceExecution } from 'src/app/models/sourceExecution';
 import { EmployeService } from 'src/app/services/employe.service';
+import { EntiteService } from 'src/app/services/entite.service';
 import { InfractionService } from 'src/app/services/infraction.service';
 import { ReclamationService } from 'src/app/services/reclamation.service';
+import { SourceExecutionService } from 'src/app/services/source-execution.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-add-infraction',
@@ -17,43 +22,60 @@ export class AddInfractionComponent implements OnInit {
 
   ReclamationsList: Reclamation[];
   rec: any = {};
-  EmployeesList: Employee[];
+  EmployeesList: Employe[];
   emp: any = {};
+  codeEmploye: string = '';
+  //source
+  sourceExecution: string = '';
+  source: any = {};
+  SourceList: SourceExecution[];
 
-  constructor(public crudApi: InfractionService, public reclamationService: ReclamationService,
+  userCreation: number;
+  userLastmodified: number;
+
+  constructor(public crudApi: InfractionService,
+    public reclamationService: ReclamationService,
     public empService: EmployeService,
     public fb: FormBuilder, public toastr: ToastrService,
-    private router: Router) { }
-
-  get f() { return this.crudApi.dataForm.controls; }
+    private router: Router, public dialogRef: MatDialogRef<AddInfractionComponent>,
+    private tokenStorage: TokenStorageService,
+    public sourceService: EntiteService
+  ) { }
 
   ngOnInit() {
+    this.userCreation = this.tokenStorage.getUser().id;
+    this.userLastmodified = this.tokenStorage.getUser().id;
 
-    if (this.crudApi.choixmenu == "A") { this.infoForm() };
+    if (this.crudApi.choixmenu == "A") { this.infoForm(); };
 
+    //getReclamation
     this.reclamationService.getAll().subscribe(
       response => { this.ReclamationsList = response; console.log(response); }
     );
+    //getEmploye
     this.empService.getAll().subscribe(
       response => { this.EmployeesList = response; }
     );
-
+    //getSource
+    this.sourceService.getAll().subscribe(
+      response => { this.SourceList = response; }
+    );
   }
+
   infoForm() {
     this.crudApi.dataForm = this.fb.group({
       idInfraction: null,
-      numInfraction: [0, [Validators.required]],
-      dateInfraction: [new Date(), [Validators.required]],
-      heureInfraction: ['', [Validators.required]],
-      cinSourceInfraction: ['', [Validators.required, Validators.minLength(8)]],
+      numInfraction: [[Validators.required]],
+      dateInfraction: [new Date(Date.now()), [Validators.required]],
       descriptionInfraction: ['', [Validators.required]],
       niveauTraveaux: ['', [Validators.required]],
       degats: ['', [Validators.required]],
       descriptions: ['', [Validators.required]],
-      code_reclamation: [0, [Validators.required]],
-      idF: [0, [Validators.required]],
       numReclamation: [0, [Validators.required]],
-      nom: ['', [Validators.required]],
+      codeEmploye: ['', [Validators.required]],
+      source: ['', [Validators.required]],
+      userCreation: this.userCreation,
+      userLastmodified: this.userLastmodified,
     });
   }
 
@@ -65,27 +87,36 @@ export class AddInfractionComponent implements OnInit {
       this.addData();
     }
     else {
-
-      this.updateData()
+      this.updateData();
+      this.infoForm();
     }
-
   }
+
   addData() {
     this.crudApi.createData(this.crudApi.dataForm.value).
       subscribe(data => {
-        this.toastr.success('Validation Faite avec Success');
-        this.router.navigate(['/reclamation/acceuil/infractions']);
-        console.log(data);
+        this.dialogRef.close();
+        this.toastr.success('تم الاضافة بنجاح');
+        this.crudApi.getAll().subscribe(
+          response => { this.crudApi.listData = response; }
+        );
       });
-    location.reload();
+    this.router.navigate(['/acceuil/infractions']);
   }
   updateData() {
+    this.crudApi.dataForm.value.userLastmodified = this.userLastmodified;
     this.crudApi.updatedata(this.crudApi.dataForm.value.idInfraction, this.crudApi.dataForm.value).
       subscribe(data => {
-        this.toastr.success('Modification Faite avec Success');
-        this.router.navigate(['/reclamation/acceuil/infractions']);
+        this.dialogRef.close();
+        this.toastr.success(' تم التغيير بنجاح');
+        this.crudApi.getAll().subscribe(
+          Response => {
+            this.crudApi.listData = Response;
+          }
+        );
+        //location.reload();
       });
-    location.reload();
+    this.router.navigate(['/acceuil/infractions']);
   }
 
   onSelectReclamation(numReclamation: number) {
@@ -95,13 +126,26 @@ export class AddInfractionComponent implements OnInit {
       }
     );
   }
-  onSelectEmployee(nom: number) {
-    this.empService.getData(nom).subscribe(
+
+  onSelectEmp(nom: String) {
+    this.empService.getEmp(nom).subscribe(
       response => {
         this.emp = response;
+        console.log("response", this.emp.nomPrenom);
       }
     );
   }
+
+  onSelectSource(nom: String) {
+    this.sourceService.getEntiteByNom(nom).subscribe(
+      response => {
+        this.source = response;
+        console.log("response", this.source.nom);
+      }
+    );
+  }
+
+
 
 
 }

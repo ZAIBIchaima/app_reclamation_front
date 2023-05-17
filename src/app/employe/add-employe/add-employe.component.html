@@ -1,0 +1,62 @@
+<html lang="ar" dir="rtl">
+<mat-toolbar>
+    <div>
+        <h1>ادارة الاعوان</h1>
+    </div>
+</mat-toolbar>
+<form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+    <input type="hidden" formControlName="id" id="id">
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label style="font-size:15px"> اسم العون</label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="nomPrenom"
+                    id="nomPrenom">
+            </div>
+
+            <div class="form-group">
+                <label style="font-size:15px">العنوان </label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="adresse" id="adresse">
+            </div>
+
+            <div class="form-group">
+                <label style="font-size:15px">الوظيفة </label>
+                <input type="text" class="form-control" style="font-size:15px" formControlName="fonction" id="fonction">
+            </div>
+
+
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label style="font-size:15px"> رقم الهاتف</label>
+                <input type="number" class="form-control" style="font-size:15px" formControlName="contact" id="contact">
+            </div>
+            <div class="form-group">
+                <label style="font-size:15px">البريد الالكتروني</label>
+                <input type="text" class="form-control" formControlName="email" id="email" style="font-size:15px">
+            </div>
+            <div class="form-group">
+                <label style="font-size:15px"> المصلحة</label>
+                <select class="form-control" style="font-size:15px" formControlName="libDep" id="libDep"
+                    (change)="onSelectDepartement($any($event.target).value)">
+                    <option value="">-Select-</option>
+                    <option *ngFor="let item of DepartementsList" value="{{item.libDep}}">
+                        {{item.libDep}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success" style="font-size:15px"><i class="fa fa-database"></i> تسجيل
+        </button>
+        <button type="button" class="btn btn-danger" style="font-size:15px" [mat-dialog-close]>
+            <i class="fa fa-close"></i> الغاء
+        </button>
+
+    </div>
+</form>
+
+</html>
